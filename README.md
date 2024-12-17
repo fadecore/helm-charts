@@ -15,6 +15,8 @@ helm repo add fadecore https://fadecore.github.io/helm-charts
 
 You can then run `helm search repo fadecore` to see the charts.
 
+If you want to pull the helm charts from an oci registry you can check availability with `helm show chart oci://ghcr.io/fadecore/helm-charts/$CHART_NAME`
+
 ## Contributing
 
 The source code of all charts can be found on Github: <https://github.com/fadecore/helm-charts/>
