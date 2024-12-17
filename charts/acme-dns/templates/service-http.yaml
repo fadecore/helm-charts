@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "acme-dns.fullname" . }}-http
+  labels:
+    {{- include "acme-dns.labels" . | nindent 4 }}
+  annotations:
+    {{ toYaml .Values.service.annotations | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: {{ .Values.service.http.type }}
+  {{- if .Values.service.http.ipDualStack.enabled }}
+  ipFamilies: {{ toYaml .Values.service.http.ipDualStack.ipFamilies | nindent 4 }}
+  ipFamilyPolicy: {{ .Values.service.http.ipDualStack.ipFamilyPolicy }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.service.http.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "acme-dns.selectorLabels" . | nindent 6 }}

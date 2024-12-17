@@ -1,0 +1,14 @@
+# See https://github.com/helm/chart-testing#configuration
+remote: origin
+target-branch: main
+chart-dirs:
+  - charts
+chart-repos:
+  - fadecore=https://fadecore.github.io/helm-charts
+github-groups: true
+helm-extra-args: --timeout 600s
+excluded-charts:
+  # If not running on GCE, will error: "Failed to get GCE config"
+additional-commands:
+  - sh -ec "if [ -f '{{ .Path }}/ci/lint.sh' ]; then shellcheck '{{ .Path }}/ci/lint.sh'; bash '{{ .Path }}/ci/lint.sh'; fi"
+  # - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}

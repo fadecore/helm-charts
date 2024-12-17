@@ -1,0 +1,13 @@
+image:
+  repository: joohoi/acme-dns
+  pullPolicy: Always
+  tag: "v1.0"
+service:
+  dns:
+    annotations: {}
+    type: LoadBalancer
+    port: "53"
+persistent:
+  enabled: true
+  storageClassName: ""
+  size: 1Gi

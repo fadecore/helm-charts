@@ -1,0 +1,19 @@
+{{- if .Values.persistent.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "acme-dns.fullname" . }}
+spec:
+{{- if .Values.persistent.storageClassName }}
+{{- if (eq "-" .Values.persistent.storageClassName) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistent.storageClassName }}"
+{{- end }}
+{{- end }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistent.size}}
+{{- end -}}
